@@ -15,7 +15,7 @@ namespace MVC5SignalRChat.Hubs
         public void Send(string id, double latitude, double longtitude)
         {
             var generator = new Random();
-            Storage[id] = new Coordinates { Latitude = latitude + generator.Next(1, 10), Longtitude = longtitude + generator.Next(1, 10) };
+            Storage[id] = new Coordinates { Latitude = latitude, Longtitude = longtitude };
             Clients.All.addNewMessageToPage(JsonConvert.SerializeObject(Storage, Formatting.Indented));
         }
 

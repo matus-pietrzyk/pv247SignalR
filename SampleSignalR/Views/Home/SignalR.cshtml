@@ -16,11 +16,35 @@
     <script src="~/signalr/hubs"></script>
     <!--SignalR script to update the chat page and send messages.-->
     <script>
+
+        function updatePosition() {
+            console.log("Updating positions")
+            window.latitude = 0;
+            window.longtitude = 0;
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                console.log("Browser does not support geolocation, or it is not permited.")
+            }
+        }
+
+        function showPosition(position) {
+            latitude = position.coords.latitude;
+            longtitude = position.coords.longitude;
+
+            posisionHub.server.send($('#displayname').val(), latitude, longtitude);
+        }
+
         $(function () {
             // Reference the auto-generated proxy for the hub.
-            var chat = $.connection.testHub;
+            window.posisionHub = $.connection.testHub;
+
+            //Store markers to change their position
+            window.markers = {};
+
             // Create a function that the hub can call back to display messages.
-            chat.client.addNewMessageToPage = function (message) {
+            window.posisionHub.client.addNewMessageToPage = function (message) {
                 // Add the message to the page.
                 $('#content').html(message);
 
@@ -34,13 +58,21 @@
                     console.log(obj);
                     console.log(key);
 
-                    var marker = new google.maps.Marker({
-                        id: key,
-                        position: new google.maps.LatLng(obj["Latitude"], obj["Longtitude"]),
-                        animation: google.maps.Animation.BOUNCE
-                    });
+                    //Updating old marker
+                    if (key in markers) {
+                        markers[key].setPosition(new google.maps.LatLng(obj["Latitude"], obj["Longtitude"]))
+                    }
+                    else { //New marker added
+                        var marker = new google.maps.Marker({
+                            id: key,
+                            position: new google.maps.LatLng(obj["Latitude"], obj["Longtitude"])
+                        });
+                        markers[key] = marker;
 
-                    marker.setMap(window.map);
+                        //show marker on the map
+                        marker.setMap(window.map);
+                    }
+
                 }
 
                 //For concrete value
@@ -52,32 +84,11 @@
             // Set initial focus to message input box.
             // Start the connection.
 
-            var latitude = 0;
-            var longtitude = 0;
+            $.connection.hub.start().done(setInterval(updatePosition, 1000));
+       });
 
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                console.log("Browser does not support geolocation, or it is not permited.")
-            }
+        
 
-            function showPosition(position) {
-                latitude = position.coords.latitude;
-                longtitude = position.coords.longitude;
-            }
-
-
-            function sendDataToServer() {
-                // Call the Send method on the hub.
-                chat.server.send($('#displayname').val(), latitude, longtitude);
-            }
-
-            $.connection.hub.start().done(setInterval(sendDataToServer, 1000));
-
-
-            //var script = document.createElement("script");
-            //script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyDzPfjG3MX3RdE1ePdO73UMQUImPsjgZMU&sensor=true&callback=initialize"; document.body.appendChild(script);
-        });
         // This optional function html-encodes messages for display in the page.
         function htmlEncode(value) {
             var encodedValue = $('<div />').text(value).html();
@@ -101,7 +112,7 @@
     <script>
         function initialize() {
 
-            var pos = new google.maps.LatLng(50, 20);
+            var pos = new google.maps.LatLng(49.195102, 16.608087);
 
 
             var mapProp = {
@@ -114,21 +125,11 @@
 
             map.setCenter(pos);
 
-            var marker = new google.maps.Marker({
-                position: pos,
-                animation: google.maps.Animation.BOUNCE
-            });
-
-            marker.setMap(map);
-
             var infowindow = new google.maps.InfoWindow({
                 content: '<div class="scrollFix">' + $('#displayname').val() + '</div>',
 
             });
 
-            google.maps.event.addListener(marker, 'click', function () {
-                infowindow.open(map, marker);
-            });
 
             console.log("Map was initialized");
         }
