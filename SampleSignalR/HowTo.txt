@@ -1,0 +1,22 @@
+﻿How to set Signal R
+
+1. Package Manager Console -> enter "install-package Microsoft.AspNet.SignalR" (Download and add scripts for signalR to project)
+2. Crate SignalR Hub Class (v2) item to /Hubs folder (/Hubs is used as bast practise) (i.e TestHub)
+3. In Hub There will be methods Called from Clinet->Server and by variable Clients are called methods from Server to client
+4. Add  app.MapSignalR(); to Startup.cz in Configuration(IAppBuilder app) mathod
+5. Add View for fontroler i.e. Test.cshtml
+6. In View Add @section scripts {} (will be rendered in _Layout.cshtml, when @RenderSection("scripts", required: false))
+7. implement 
+
+$(function ()
+{ 
+    var hub = $.connection.testHub; //!!first letter is small (same name as hub in /Hubs folder) 
+    chat.client.NameOfMethodWhitchCouldBeCalledFromServerToClient(){} 
+    
+    //This is called aftert connestion is initialized
+    $.connection.hub.start().done(function () 
+    {
+        //Here we can call methods from Hub -> thus calls coul be set as even handlers i.e. onclick event
+        hub.server.methodImplementedInTestHubClass();
+    }
+}
