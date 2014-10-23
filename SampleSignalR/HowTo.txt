@@ -20,3 +20,5 @@ $(function ()
         hub.server.methodImplementedInTestHubClass();
     }
 }
+
+Changed
