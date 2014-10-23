@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="friendsTrackerModule">
+<head>
+    <base href="/" />
+    <script src="Scripts/jquery-2.1.1.min.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-route.min.js"></script>
+
+    <script src="Scripts/Controllers/FriendsTrackerController.js"></script>
+
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <title></title>
+</head>
+<body data-ng-controller="FriendsTrackerController">
+    <h1>Test02</h1>
+    <p>1 + 2 = {{ 1 + 2 }}</p>
+    {{ testData }}
+    <div class="container">
+        <div ng-view></div>
+    </div>
+</body>
+</html>
