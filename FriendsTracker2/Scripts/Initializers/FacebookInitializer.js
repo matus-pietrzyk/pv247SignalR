@@ -66,7 +66,8 @@ window.fbAsyncInit = function () {
 
 function testAPI() {
     FB.api('/me', function (response) {
-        $("#status").text(response.name);
+        $("#status").text(response.name + response.id);
+        $("#displayname").val(response.id);
         //$("#contentName").text(response.name);
         //$("#contentEmail").text(response.email);
     });
