@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
@@ -13,11 +14,12 @@ namespace FriendsTracker2
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            string url = Request.Url.LocalPath;
-            if (!System.IO.File.Exists(Context.Server.MapPath(url)))
-            {
-                Context.RewritePath(ROOT_DOCUMENT);
-            }
+            //string url = Request.Url.LocalPath;
+            //// little hack to exclude signalR virtual folder to URL rewriting
+            //if (!(System.IO.File.Exists(Context.Server.MapPath(url)) || url.StartsWith("/signalr/")))
+            //{
+            //    Context.RewritePath(ROOT_DOCUMENT);
+            //}
         }
 
         protected void Application_Start()

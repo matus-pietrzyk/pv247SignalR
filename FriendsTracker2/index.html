@@ -8,15 +8,35 @@
 
     <script src="Scripts/Controllers/FriendsTrackerController.js"></script>
 
+    <script src="Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="signalr/hubs"></script>
+
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <title></title>
 </head>
 <body data-ng-controller="FriendsTrackerController">
+    <script>
+
+
+        $(function (){        
+            console.log("Start initializing");
+            
+            //Initializing Facebook autentication
+            $.getScript("Scripts/Initializers/FacebookInitializer.js", function () {
+                window.fbAsyncInit();
+            });            
+        });
+
+    </script>
+
     <h1>Test02</h1>
     <p>1 + 2 = {{ 1 + 2 }}</p>
     {{ testData }}
     <div class="container">
-        <div ng-view></div>
+        Status:<div id="status"></div>
+        <div ng-view>
+            
+        </div>
     </div>
 </body>
 </html>

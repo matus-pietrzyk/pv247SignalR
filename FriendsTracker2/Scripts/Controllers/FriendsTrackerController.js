@@ -12,7 +12,8 @@ friendsTrackerModule.config(['$routeProvider', '$locationProvider', function ($r
         when('/', {
             templateUrl: 'Scripts/Templates/FriendsTrackerTemplate.html',
             controller: 'FriendsTrackerController'
-        }).otherwise({
+        })
+        .otherwise({
             redirectTo: '/'
         });
     }]
