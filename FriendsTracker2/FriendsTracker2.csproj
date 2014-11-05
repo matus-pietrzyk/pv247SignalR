@@ -890,6 +890,7 @@
     </Compile>
     <Compile Include="Hubs\FriendsTrackerHub.cs" />
     <Compile Include="Models\Coordinates.cs" />
+    <Compile Include="Models\UserInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\Initializers\SignalRInitializer.js" />
     <Compile Include="Startup.cs" />

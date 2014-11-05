@@ -17,12 +17,11 @@ namespace FriendsTracker2.Models
             this.Longtitude = 0;
         }
 
+
         public Coordinates(double Latitude, double Longitude)
         {
             this.Latitude = Latitude;
             this.Longtitude = Longtitude;
         }
-
-
     }
 }
