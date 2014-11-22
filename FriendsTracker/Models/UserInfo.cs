@@ -9,15 +9,21 @@ namespace FriendsTracker.Models
     {
 
         public Coordinates Coordinates { get; set; }
+        public string Name { get; set; }
+
+        public DateTime TimeStamp { get; set; }
 
         public UserInfo()
         {
             this.Coordinates = new Coordinates();
+            this.TimeStamp = DateTime.Now;
         }
 
-        public UserInfo(Coordinates coordinates)
+        public UserInfo(Coordinates coordinates, String name, DateTime timeStamp)
         {
             this.Coordinates = coordinates;
+            this.Name = name;
+            this.TimeStamp = timeStamp;
         }
 
     }

@@ -18,7 +18,7 @@ namespace FriendsTracker.Hubs
         {
             var generator = new Random();
             //Storage[id] = new UserInformation { Coordinates = new Coordinates(latitude, longtitude) };
-            Storage[id] = new UserInfo(new Coordinates { Latitude = latitude, Longtitude = longtitude });
+            Storage[id] = new UserInfo(new Coordinates { Latitude = latitude, Longtitude = longtitude }, "TestName", DateTime.Now);
             Clients.All.updateCoordinates(JsonConvert.SerializeObject(Storage, Formatting.Indented));
         }
     }
