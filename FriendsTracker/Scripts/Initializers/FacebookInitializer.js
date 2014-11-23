@@ -13,7 +13,7 @@
     });
 
     testAPI();
-    testFriends();
+    //testFriends();
 
 }
 
@@ -21,7 +21,7 @@
 function statusChangeCallback(response) {
     if (response.status === 'connected') {
         testAPI();
-        testFriends();
+        //testFriends();
         console.log("Logged in!");
     }
     else {

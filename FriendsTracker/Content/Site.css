@@ -1,24 +1,107 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿html,body{
+    width: 100%;
+    height: 100%;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+tr:hover{
+    cursor:pointer;
+    color:#FFFFFF;
+    background-color:#999999;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+.table {
+    margin-bottom:1px;
+    border-bottom:1px solid #dddddd;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.roundBtn{
+    color: #3333FF;
+    background-color:#FFFFFF;
+    display:block;
+    font-size: 20px;
+    width:50px;
+    height:50px;
+    margin:20px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius:50px;
+    text-align:center;
+    padding-top:12px;
+}
+
+.roundBtn:hover{
+    cursor:pointer;
+}
+
+.roundBtnBlue{
+    color: #FFFFFF;
+    background-color:#3333FF;
+}
+
+#showMapBtn:hover{
+    cursor: pointer;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+}
+
+#googleMap{
+    height:100%;
+}
+
+#buttons {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    z-index: 1;
+}
+
+#sideBar{
+    height:100%;
+}
+
+#friendList{
+    margin-top:30px;
+}
+
+#logOutBtn{
+    margin-top:30px;
+}
+
+@media (min-height: 0px) {
+    #friendList{
+        max-height:20%;
+    }
+}
+
+@media (min-height: 300px) {
+    #friendList{
+        max-height:25%;
+    }
+}
+
+@media (min-height: 400px) {
+    #friendList{
+        max-height:43%;
+    }
+}
+
+@media (min-height: 500px) {
+    #friendList{
+        max-height:54%;
+    }
+}
+
+@media (min-height: 600px) {
+    #friendList{
+        max-height:62%;
+    }
+}
+
+@media (min-height: 700px) {
+    #friendList{
+        max-height:70%;
+    }
 }
