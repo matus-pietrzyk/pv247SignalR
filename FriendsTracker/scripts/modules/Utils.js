@@ -3,7 +3,7 @@
 
     return {
         showDiv: function () {
-            $("body").append("<h1>XXX</h1>");
+            //$("body").append("<h1>XXX</h1>");
         }
     }
 })

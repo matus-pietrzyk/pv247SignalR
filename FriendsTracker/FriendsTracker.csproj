@@ -182,9 +182,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
-    <Content Include="scripts\Initializers\FacebookInitializer.js" />
-    <Content Include="scripts\Initializers\GoogleMapInitializer.js" />
-    <Content Include="scripts\Initializers\SignalRInitializer.js" />
     <None Include="scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="scripts\jquery-2.1.1.js" />
     <Content Include="scripts\jquery-2.1.1.min.js" />
@@ -199,7 +196,7 @@
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="scripts\modules\fb.js" />
     <Content Include="scripts\modules\main.js" />
-    <Content Include="scripts\modules\gmapsModule.js" />
+    <Content Include="scripts\modules\gmapModule.js" />
     <Content Include="scripts\modules\signalRModule.js" />
     <Content Include="scripts\require.js" />
     <Content Include="scripts\modules\Utils.js" />
