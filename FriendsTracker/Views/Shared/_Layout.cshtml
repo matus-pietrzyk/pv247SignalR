@@ -13,10 +13,17 @@
         @RenderBody()
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript" src="scripts/require.js"></script>
+    <script type="text/javascript">
+        require(['/scripts/modules/main.js'], function (main) {
+            main("@ViewBag.PageCodename");
+        })
+    </script>
+
+    @*@Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     @RenderSection("googleMapSourceScript", required: false)
-    @RenderSection("mapInitializationSrcipts", required: false)
+    @RenderSection("mapInitializationSrcipts", required: false)*@
 </body>
 </html>
