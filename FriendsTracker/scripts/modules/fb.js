@@ -7,8 +7,8 @@
             return;
         }
         testAPI();
-        //testFriends();
-
+        testFriends();
+        
     }
 
 
@@ -39,8 +39,8 @@
     window.fbAsyncInit = function () {
         FB.init({
             //appId: '816407471714978',
-            //appId: '1560258900861036',
-            appId: '708275685924989',
+            appId: '1560258900861036',
+            //appId: '708275685924989',
             cookie: true,
             xfbml: true,
             version: 'v2.1'
@@ -68,14 +68,29 @@
     };
 
     function testFriends() {
+        
         FB.api('/me/friends', function (response) {
             if (response.data) {
                 $.each(response.data, function (index, friend) {
-                    alert(friend.name + ' has id:' + friend.id);
+                    $("#friendListTable").append(function(n){
+                        return "<tr><td>" + "Name: " + friend.name + ", Id: " + friend.id + "</td></tr>";
+                    });
+                    //getProfilePictureUrl(friend.id);
                 });
             } else {
                 alert("Error!");
             }
+        });
+    }
+
+    function getProfilePictureUrl(id)
+    {
+        var path = '/' + id + '/picture';
+        FB.api(path, function (response) {
+            if (response && !response.error) {
+                alert(response.data.url)
+                //return response.data.url;
+            }     
         });
     }
 });
