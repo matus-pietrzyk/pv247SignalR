@@ -72,10 +72,17 @@
         FB.api('/me/friends', function (response) {
             if (response.data) {
                 $.each(response.data, function (index, friend) {
+                    
                     $("#friendListTable").append(function(n){
-                        return "<tr><td>" + "Name: " + friend.name + ", Id: " + friend.id + "</td></tr>";
+                        return "<tr><td id='photo" + index + "'></td><td>" + "Name: " + friend.name + "<br>Id: " + friend.id + "</td></tr>";
                     });
-                    //getProfilePictureUrl(friend.id);
+
+                    getProfilePictureUrl(friend.id, function (data) {
+                        var stringer = "#photo" + index;
+                        $(stringer).append(function (n) {
+                            return "<tr><td><img src='" + data + "'></td></tr>";
+                        });
+                    });
                 });
             } else {
                 alert("Error!");
@@ -83,13 +90,12 @@
         });
     }
 
-    function getProfilePictureUrl(id)
+    function getProfilePictureUrl(id, callback)
     {
         var path = '/' + id + '/picture';
-        FB.api(path, function (response) {
+        return FB.api(path, function (response) {
             if (response && !response.error) {
-                alert(response.data.url)
-                //return response.data.url;
+                callback(response.data.url);
             }     
         });
     }
