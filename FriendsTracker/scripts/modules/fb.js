@@ -82,7 +82,7 @@
                     getProfilePictureUrl(friend.id, function (data) {
 
                         listOfFriends.push({ id: friend.id, name: friend.name, pictureurl: data });
-                        console.log("id: " + friend.name + ", name: " + friend.name + ", url: " + data);
+                        console.log("id: " + friend.id + ", name: " + friend.name + ", url: " + data);
                     });
                 });
             } else {

@@ -6,17 +6,27 @@
 
             var model = JSON.parse(message);
             console.log("Model: " + JSON.stringify(model));
+
+
            
             var listOfFriends = fb.getListOfFriends();
+
+            console.log("LIST OF FRIENDS - BEGIN");
+            listOfFriends.forEach(function (entry) {
+
+                console.log(entry);
+
+            });
+            console.log("LIST OF FRIENDS - END");
 
             for (var key in model) {
 
                 var resultOfLookup = $.grep(listOfFriends, function (e) { return e.id == key; });
 
                 if (resultOfLookup.length == 0) {
-                    console.log("Entry not found.");
+                    console.log("Entry " + key + " not found.");
                 } else if (resultOfLookup.length == 1) {
-                    console.log("One record found");
+                    console.log("One record found: " + key);
 
                     var image = resultOfLookup[0].pictureurl;
 
