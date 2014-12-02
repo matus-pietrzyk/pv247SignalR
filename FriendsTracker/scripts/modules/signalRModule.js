@@ -19,6 +19,8 @@
             });
             console.log("LIST OF FRIENDS - END");
 
+            $("#friendListTable").empty();
+
             for (var key in model) {
 
                 var resultOfLookup = $.grep(listOfFriends, function (e) { return e.id == key; });
@@ -29,8 +31,6 @@
                     console.log("One record found: " + key);
 
                     var image = resultOfLookup[0].pictureurl;
-
-                    $("#friendListTable").empty();
 
                     $("#friendListTable").append(function (n) {
                         return "<tr><td><img src='" + image + "'></td><td>" + "Name: " + resultOfLookup[0].name + "<br>Id: " + resultOfLookup[0].id + "</td></tr>";
