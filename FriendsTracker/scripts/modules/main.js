@@ -44,6 +44,7 @@ define([], function () {
 
 
         require(['fb'], function () {
+            
             require(["jquery",
                 "utils",
                 "gmap",
@@ -51,12 +52,12 @@ define([], function () {
                  "async!http://maps.googleapis.com/maps/api/js?key=AIzaSyDzPfjG3MX3RdE1ePdO73UMQUImPsjgZMU&sensor=true&callback=initialize",
                 "signalr.hubs",
                 "jquery.bootstrap"], function ($, utils, gmap, signalR) {
-
+                    
                     var markers = {};
                     var serviceHub = $.connection.friendsTrackerHub; //!!first letter is small);
-
+          
                     var map = gmap.initMap(serviceHub);
-
+                   
                     signalR.initSignalR(serviceHub, markers, map);
 
                     //This is called aftert connection is initialized

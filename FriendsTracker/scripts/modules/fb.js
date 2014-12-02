@@ -1,4 +1,7 @@
 ﻿define(['facebook'], function () {
+
+    var listOfFriends = [];
+
     function statusReady(response) {
         console.log("Logged in! - first call status: " + response.status);
 
@@ -6,15 +9,13 @@
             LogIn();
             return;
         }
-        testAPI();
-        testFriends();
-        
+        getMyFbDetails();
+        getFriends();
     }
-
 
     function statusChangeCallback(response) {
         if (response.status === 'connected') {
-            testAPI();
+            getMyFbDetails();
             //testFriends();
             console.log("Logged in!");
         }
@@ -59,29 +60,29 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-    function testAPI() {
+    function getMyFbDetails() {
         FB.api('/me', function (response) {
             console.log("FB logged in");
             $("#userName").text(response.name);
             $("#userId").text(response.id);
+
+            getProfilePictureUrl(response.id, function (data) {
+
+                listOfFriends.push({ id: response.id, name: response.name, pictureurl: data });
+            });
         });
     };
 
-    function testFriends() {
+    function getFriends() {
         
         FB.api('/me/friends', function (response) {
             if (response.data) {
                 $.each(response.data, function (index, friend) {
-                    
-                    $("#friendListTable").append(function(n){
-                        return "<tr><td id='photo" + index + "'></td><td>" + "Name: " + friend.name + "<br>Id: " + friend.id + "</td></tr>";
-                    });
 
                     getProfilePictureUrl(friend.id, function (data) {
-                        var stringer = "#photo" + index;
-                        $(stringer).append(function (n) {
-                            return "<tr><td><img src='" + data + "'></td></tr>";
-                        });
+
+                        listOfFriends.push({ id: friend.id, name: friend.name, pictureurl: data });
+                        console.log("id: " + friend.name + ", name: " + friend.name + ", url: " + data);
                     });
                 });
             } else {
@@ -99,4 +100,8 @@
             }     
         });
     }
+
+    return {
+        getListOfFriends: function () { return listOfFriends; }
+    };
 });
