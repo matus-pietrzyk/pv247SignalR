@@ -42,7 +42,6 @@
                     var marker = new google.maps.Marker({
                         map: map,
                         position: new google.maps.LatLng(obj.Coordinates.Latitude, obj.Coordinates.Longtitude),
-                        animation: google.maps.Animation.DROP,
                         icon: image,
                         title: obj.Name
                     });

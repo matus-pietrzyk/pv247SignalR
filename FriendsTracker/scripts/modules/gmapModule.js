@@ -2,8 +2,6 @@
 
     var serviceHub;
 
-    
-
     function showPosition(position) {
         latitude = position.coords.latitude;
         longtitude = position.coords.longitude;
