@@ -43,8 +43,9 @@ define([], function () {
         //Tady bude in na to, jestli načíst vše, nebo nic :-) Podle Codename, který nastavuju v Index.cshtml
 
 
-        require(['fb'], function () {
+        require(['fb'], function (fb) {
             
+
             require(["jquery",
                 "utils",
                 "gmap",
@@ -52,12 +53,28 @@ define([], function () {
                  "async!http://maps.googleapis.com/maps/api/js?key=AIzaSyDzPfjG3MX3RdE1ePdO73UMQUImPsjgZMU&sensor=true&callback=initialize",
                 "signalr.hubs",
                 "jquery.bootstrap"], function ($, utils, gmap, signalR) {
-                    
+
+                    $('#logInBtn').click(function () {
+                        fb.customLogIn();
+                    });
+
+                    $('#logOutBtn').click(function () {
+                        fb.customLogOut();
+                    });
+
+                    $('#showSideBarBtn').click(function () {
+                        utils.showSideBar();
+                    });
+
+                    $('#showMapBtn').click(function () {
+                        utils.showMap();
+                    });
+
                     var markers = {};
                     var serviceHub = $.connection.friendsTrackerHub; //!!first letter is small);
-          
+
                     var map = gmap.initMap(serviceHub);
-                   
+
                     signalR.initSignalR(serviceHub, markers, map);
 
                     //This is called aftert connection is initialized

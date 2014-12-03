@@ -2,39 +2,16 @@
 
     var listOfFriends = [];
 
-    function statusReady(response) {
-        console.log("Logged in! - first call status: " + response.status);
-
-        if (!(response.status === 'connected')) {
-            LogIn();
-            return;
-        }
-        getMyFbDetails();
-        getFriends();
-    }
 
     function statusChangeCallback(response) {
         if (response.status === 'connected') {
+            ShowMainScreen();
             getMyFbDetails();
-            //testFriends();
-            console.log("Logged in!");
         }
         else {
-            console.log("Logged out!");
-            LogIn();
+            ShowLogInScreen();
+            listOfFriends.length = 0;
         }
-    }
-
-    function LogIn() {
-        FB.login(function (response) {
-            statusReady(response);
-        }, { scope: 'public_profile,email,user_friends' });
-    }
-
-    function LogOut() {
-        FB.logout(function (response) {
-            statusChangeCallback(response);
-        });
     }
 
     window.fbAsyncInit = function () {
@@ -48,7 +25,7 @@
         });
 
         FB.getLoginStatus(function (response) {
-            statusReady(response);
+            statusChangeCallback(response);
         });
     };
 
@@ -59,6 +36,28 @@
         js.src = "//connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+
+    function ShowMainScreen() {
+        $('#logInScreen').hide();
+        $('#mainScreen').show();
+
+        //TODO refactor (Utils should be loaded first)
+        if (!$("#sideBar").hasClass("hidden-xs")) {
+            $("#sideBar").addClass("hidden-xs");
+
+            $("#showMapBtn").hide();
+
+            $("#googleMap").show();
+
+            $("#buttons").addClass("visible-xs");
+            $("#buttons").show();
+        }
+    }
+
+    function ShowLogInScreen() {
+        $('#mainScreen').hide();
+        $('#logInScreen').show();
+    }
 
     function getMyFbDetails() {
         FB.api('/me', function (response) {
@@ -102,6 +101,20 @@
     }
 
     return {
-        getListOfFriends: function () { return listOfFriends; }
-    };
+    	getListOfFriends: function () { 
+       	    return listOfFriends; 
+	    },
+    
+        customLogIn: function () {
+            FB.login(function (response) {
+                statusChangeCallback(response);
+            }, { scope: 'public_profile,email,user_friends' });
+        },
+
+        customLogOut: function () {
+            FB.logout(function (response) {      
+                statusChangeCallback(response);
+            });
+        }
+    }
 });

@@ -2,59 +2,39 @@
     ViewBag.pageCodename = "index";
 }
 
-<div id="googleMap" class="col-xs-12 col-sm-8">
+<div id="logInScreen" style="display:none; text-align:center">
+    <h1>Friends Tracker</h1>
+
+    <a id="logInBtn" class="btn btn-social btn-facebook">
+        <i class="fa fa-facebook"></i> Log in with Facebook
+    </a>
 </div>
 
-<div id="buttons" class="visible-xs">
-    <span id="zoomBtn" class="roundBtn glyphicon glyphicon-screenshot" aria-hidden="true"></span>
-
-    <span id="showSideBarBtn" class="roundBtn roundBtnBlue glyphicon glyphicon-th-list" aria-hidden="true" onclick="showSideBar()"></span>
-</div>
-
-<div id="sideBar" class="col-xs-12 col-sm-4 hidden-xs">
-    <h1><span id="showMapBtn" style="display:none" onclick="showMap()">< </span>Friends Tracker</h1>
-
-    <h3 id="userName"></h3>
-    <input type="hidden" value="" id="userId" />    
-
-    <div id="friendList" style="overflow-x:hidden">
-        <table id="friendListTable" class="table">
-            @*@for (var i = 1; i < 5; i++)
-            {
-                <tr>
-                    <td>Friend @i</td>
-                </tr>
-            }*@
-        </table>
+<div id="mainScreen" style="display:none">
+    <div id="googleMap" class="col-xs-12 col-sm-8">
     </div>
 
-    <table id="logOutBtn" class="table">
-        <tr>
-            <td>Log Out</td>
-        </tr>
-    </table>
+    <div id="buttons" class="visible-xs">
+        <span id="zoomBtn" class="roundBtn glyphicon glyphicon-screenshot" aria-hidden="true"></span>
+
+        <span id="showSideBarBtn" class="roundBtn roundBtnBlue glyphicon glyphicon-th-list" aria-hidden="true"></span>
+    </div>
+
+    <div id="sideBar" class="col-xs-12 col-sm-4 hidden-xs">
+        <h1><span id="showMapBtn" style="display:none">< </span>Friends Tracker</h1>
+
+        <h3 id="userName"></h3>
+        <input type="hidden" value="" id="userId" />
+
+        <div id="friendList" style="overflow-x:hidden">
+            <table id="friendListTable" class="table">
+            </table>
+        </div>
+
+        <table id="logOutBtnTable" class="table customTable">
+            <tr id="logOutBtn">
+                <td>Log Out</td>
+            </tr>
+        </table>
+    </div>
 </div>
-
-<script>
-    function showSideBar() {
-        $("#googleMap").hide();
-
-        $("#buttons").removeClass("visible-xs");
-        $("#buttons").hide();
-
-        $("#sideBar").removeClass("hidden-xs");
-
-        $("#showMapBtn").show();
-    }
-
-    function showMap() {
-        $("#sideBar").addClass("hidden-xs");
-
-        $("#showMapBtn").hide();
-
-        $("#googleMap").show();
-
-        $("#buttons").addClass("visible-xs");
-        $("#buttons").show();
-    }
-</script>

@@ -1,9 +1,27 @@
 ﻿define(["jquery"], function ($) {
-    
-
+   
     return {
-        showDiv: function () {
-            //$("body").append("<h1>XXX</h1>");
+        showSideBar: function () {
+            $("#googleMap").hide();
+
+            $("#buttons").removeClass("visible-xs");
+            $("#buttons").hide();
+
+            $("#sideBar").removeClass("hidden-xs");
+
+            $("#showMapBtn").show();
+        },
+
+        showMap: function () {
+            $("#sideBar").addClass("hidden-xs");
+
+            $("#showMapBtn").hide();
+
+            $("#googleMap").show();
+
+            $("#buttons").addClass("visible-xs");
+            $("#buttons").show();
         }
     }
+
 })
