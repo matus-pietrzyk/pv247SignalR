@@ -7,6 +7,7 @@
         if (response.status === 'connected') {
             ShowMainScreen();
             getMyFbDetails();
+            getFriends();
         }
         else {
             ShowLogInScreen();
@@ -93,7 +94,13 @@
     function getProfilePictureUrl(id, callback)
     {
         var path = '/' + id + '/picture';
-        return FB.api(path, function (response) {
+        return FB.api(
+            path,
+            {
+                "height": "32",
+                "width": "32"
+            },
+            function (response) {
             if (response && !response.error) {
                 callback(response.data.url);
             }     
