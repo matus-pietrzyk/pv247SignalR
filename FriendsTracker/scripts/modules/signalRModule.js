@@ -38,14 +38,23 @@
                                        
                     var obj = model[key];
 
-                    //debugger;
+                    var contentString = resultOfLookup[0].name;
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                    });
+
                     var marker = new google.maps.Marker({
                         map: map,
                         position: new google.maps.LatLng(obj.Coordinates.Latitude, obj.Coordinates.Longtitude),
                         icon: image,
-                        title: obj.Name
+                        title: resultOfLookup[0].name
                     });
                     marker.setMap(map);
+
+                    google.maps.event.addListener(marker, 'click', function () {
+                        infowindow.open(map, marker);
+                    });
 
                 } else {
                     console.log("Multiple records found");
