@@ -53,9 +53,24 @@ define([], function () {
                  "async!http://maps.googleapis.com/maps/api/js?key=AIzaSyDzPfjG3MX3RdE1ePdO73UMQUImPsjgZMU&sensor=true&callback=initialize",
                 "signalr.hubs",
                 "jquery.bootstrap"], function ($, utils, gmap, signalR) {
+                    
+                    var markers = {};
+                    var serviceHub = $.connection.friendsTrackerHub; //!!first letter is small);
+
+                    var map = gmap.initMap(serviceHub);
+
+                    signalR.initSignalR(serviceHub, markers, map);
+
+                    //This is called aftert connection is initialized
+                    $.connection.hub.start().done(function () {
+                        if (fb.getLogedIn()) {
+                            gmap.initUpdatePosition();
+                        }
+                    })
 
                     $('#logInBtn').click(function () {
                         fb.customLogIn();
+                        gmap.initUpdatePosition();
                     });
 
                     $('#logOutBtn').click(function () {
@@ -69,19 +84,6 @@ define([], function () {
                     $('#showMapBtn').click(function () {
                         utils.showMap();
                     });
-
-                    var markers = {};
-                    var serviceHub = $.connection.friendsTrackerHub; //!!first letter is small);
-
-                    var map = gmap.initMap(serviceHub);
-
-                    signalR.initSignalR(serviceHub, markers, map);
-
-                    //This is called aftert connection is initialized
-                    $.connection.hub.start().done(function () {
-                        setInterval(gmap.updatePosition, 1000);
-                    })
-
                 })
         });
     }

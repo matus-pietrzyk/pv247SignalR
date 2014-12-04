@@ -2,22 +2,18 @@
     var serviceHub;
 
     function initHandlers(map) {
-            serviceHub.client.updateCoordinates = function (message) {
+        serviceHub.client.updateCoordinates = function (message) {
 
             var model = JSON.parse(message);
-            console.log("Model: " + JSON.stringify(model));
+            //console.log("Model: " + JSON.stringify(model));
 
-
-           
             var listOfFriends = fb.getListOfFriends();
 
-            console.log("LIST OF FRIENDS - BEGIN");
-            listOfFriends.forEach(function (entry) {
-
-                console.log(entry);
-
-            });
-            console.log("LIST OF FRIENDS - END");
+            //console.log("LIST OF FRIENDS - BEGIN");
+            //listOfFriends.forEach(function (entry) {
+            //    console.log(entry);
+            //});
+            //console.log("LIST OF FRIENDS - END");
 
             $("#friendListTable").empty();
 

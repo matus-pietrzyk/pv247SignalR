@@ -2,17 +2,28 @@
 
     var listOfFriends = [];
 
+    var authInProgress = false;
+
+    var logedIn = false;
 
     function statusChangeCallback(response) {
         if (response.status === 'connected') {
             ShowMainScreen();
             getMyFbDetails();
             getFriends();
+            logedIn = true;
+
+            console.log("FB loged in");
         }
         else {
             ShowLogInScreen();
-            listOfFriends.length = 0;
+            ClearFriendList();
+            logedIn = false;
+
+            console.log("FB loged out");
         }
+
+        authInProgress = false;
     }
 
     window.fbAsyncInit = function () {
@@ -38,6 +49,10 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
+    function ClearFriendList() {
+        listOfFriends.length = 0;
+    }
+
     function ShowMainScreen() {
         $('#logInScreen').hide();
         $('#mainScreen').show();
@@ -62,7 +77,6 @@
 
     function getMyFbDetails() {
         FB.api('/me', function (response) {
-            console.log("FB logged in");
 
             getProfilePictureUrl(response.id, function (data) {
 
@@ -75,7 +89,6 @@
     };
 
     function getFriends() {
-        
         FB.api('/me/friends', function (response) {
             if (response.data) {
                 $.each(response.data, function (index, friend) {
@@ -88,39 +101,42 @@
                 });
             } else {
                 alert("Error!");
+        }
+        });
+    }
+
+    function getProfilePictureUrl(id, callback) {
+        var path = '/' + id + '/picture';
+        return FB.api(path,{"height": "32", "width": "32"}, function (response) {
+            if (response && !response.error) {
+                callback(response.data.url);
             }
         });
     }
 
-    function getProfilePictureUrl(id, callback)
-    {
-        var path = '/' + id + '/picture';
-        return FB.api(
-            path,
-            {
-                "height": "32",
-                "width": "32"
-            },
-            function (response) {
-            if (response && !response.error) {
-                callback(response.data.url);
-            }     
-        });
-    }
-
     return {
-    	getListOfFriends: function () { 
-       	    return listOfFriends; 
-	    },
-    
+        getListOfFriends: function () {
+       	    return listOfFriends;
+        },
+
+        getAuthInProgress: function () {
+    	    return authInProgress;
+        },
+
+        getLogedIn: function () {
+            return logedIn;
+        },
+
         customLogIn: function () {
+            authInProgress = true;
+
             FB.login(function (response) {
                 statusChangeCallback(response);
             }, { scope: 'public_profile,email,user_friends' });
         },
 
         customLogOut: function () {
-            FB.logout(function (response) {      
+            FB.logout(function (response) {
                 statusChangeCallback(response);
             });
         }

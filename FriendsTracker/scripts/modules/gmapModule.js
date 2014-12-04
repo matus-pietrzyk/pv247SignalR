@@ -1,4 +1,4 @@
-﻿define([], function () {
+﻿define(['fb'], function (fb) {
 
     var serviceHub;
 
@@ -8,6 +8,33 @@
 
         serviceHub.server.send($('#userId').text(), latitude, longtitude);
     }
+
+    function callUpdatePosition() {
+        if (fb.getAuthInProgress()) {
+            setTimeout(function () { callUpdatePosition(); }, 1000);
+        }
+        else {
+            updatePosition();
+        }
+    }
+
+    function updatePosition() {
+        if (fb.getLogedIn()) {
+            console.log("Updating position");
+
+            window.latitude = 0;
+            window.longtitude = 0;
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                console.log("Browser does not support geolocation, or it is not permited.")
+            }
+
+            setTimeout(function () { updatePosition(); }, 1000);
+        }
+    }
+
     return {
         initMap: function (hub) {
 
@@ -33,16 +60,9 @@
             return map;
 
         },
-        updatePosition: function () {
-            console.log("Updating positions")
-            window.latitude = 0;
-            window.longtitude = 0;
 
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                console.log("Browser does not support geolocation, or it is not permited.")
-            }
+        initUpdatePosition: function () {
+            callUpdatePosition();
         }
     }
 })
