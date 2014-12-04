@@ -9,6 +9,16 @@ tr:hover{
     background-color:#999999;
 }
 
+.hover:hover {
+    cursor:pointer;
+}
+
+.noHover:hover {
+    cursor:default !important;
+    color:#333 !important;
+    background-color: #fff !important;
+}
+
 .table {
     margin-bottom:1px;
     border-bottom:1px solid #dddddd;
@@ -36,6 +46,31 @@ tr:hover{
 .roundBtnBlue{
     color: #FFFFFF;
     background-color:#3333FF;
+}
+
+#appTitle{
+    padding-left:6px;
+}
+
+#userPhoto{
+    margin-top:-4px;
+    margin-left:8px;
+    margin-right:16px;
+}
+
+.photoColumn{
+    width: 49px;
+}
+
+.nameColumn{
+    padding-top: 14px !important;
+}
+
+#showMapBtn{
+    font-size:30px !important;
+    margin-left:3px !important;
+    margin-right:15px !important;
+
 }
 
 #showMapBtn:hover{

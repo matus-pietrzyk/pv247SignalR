@@ -32,9 +32,11 @@
 
                     var image = resultOfLookup[0].pictureurl;
 
-                    $("#friendListTable").append(function (n) {
-                        return "<tr><td><img src='" + image + "'></td><td>" + "Name: " + resultOfLookup[0].name + "<br>Id: " + resultOfLookup[0].id + "</td></tr>";
-                    });
+                    if (!resultOfLookup[0].myself) {
+                        $("#friendListTable").append(function (n) {
+                            return "<tr><td class='photoColumn'><img src='" + image + "'></td><td class='nameColumn'>" + resultOfLookup[0].name + "</td></tr>";
+                        });
+                    }
                                        
                     var obj = model[key];
 
@@ -59,6 +61,10 @@
                 } else {
                     console.log("Multiple records found");
                 }
+            }
+
+            if ($("#friendListTable tr").length == 0) {
+                $("#friendListTable").append("<tr class='noHover'><td>No Friends Online</td></tr>");
             }
         };
     }
