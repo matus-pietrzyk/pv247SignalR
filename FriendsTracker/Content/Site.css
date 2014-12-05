@@ -24,6 +24,12 @@ tr:hover{
     border-bottom:1px solid #dddddd;
 }
 
+.scrollFix {
+    line-height: 1.35;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 .roundBtn{
     color: #3333FF;
     background-color:#FFFFFF;
