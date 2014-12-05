@@ -51,7 +51,6 @@
                                 map: map,
                                 position: new google.maps.LatLng(obj.Coordinates.Latitude, obj.Coordinates.Longtitude),
                                 icon: image,
-                                animation: google.maps.Animation.DROP,
                                 title: resultOfLookup[0].name
                             });
 
@@ -97,7 +96,10 @@
             }
 
             if ($("#friendListTable tr").length == 0) {
-                $("#friendListTable").append("<tr class='noHover'><td>No Friends Online</td></tr>");
+                $("#friendListTable").append("<tr id='noFriends' class='noHover'><td>No Friends Online</td></tr>");
+            }
+            else {
+                $("#noFriends").remove();
             }
         };
     }
