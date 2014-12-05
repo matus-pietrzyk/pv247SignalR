@@ -30,7 +30,7 @@
 
                     if (!resultOfLookup[0].myself) {
                         $("#friendListTable").append(function (n) {
-                            return "<tr><td class='photoColumn'><img src='" + image + "'></td><td class='nameColumn'>" + resultOfLookup[0].name + "</td></tr>";
+                            return "<tr id='" + resultOfLookup[0].id + "' class='friendRow'><td class='photoColumn'><img src='" + image + "'></td><td class='nameColumn'>" + resultOfLookup[0].name + "</td></tr>";
                         });
                     }
                                        

@@ -1,6 +1,9 @@
 ﻿define(['fb'], function (fb) {
 
     var serviceHub;
+    var map;
+    var latitude;
+    var longtitude;
 
     function showPosition(position) {
         latitude = position.coords.latitude;
@@ -28,11 +31,36 @@
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
             } else {
-                console.log("Browser does not support geolocation, or it is not permited.")
+                console.log("Browser does not support geolocation, or it is not permited.");
             }
 
             setTimeout(function () { updatePosition(); }, 1000);
         }
+    }
+
+    function zoomPosition(lat, lon, zoomLevel) {
+        if (!navigator.geolocation) {
+            console.log("Browser does not support geolocation, or it is not permited.");
+            return;
+        }
+        var pos = new google.maps.LatLng(lat, lon);
+
+        //TODO refactor (Utils should be loaded first)
+        if (!$("#sideBar").hasClass("hidden-xs")) {
+            $("#sideBar").addClass("hidden-xs");
+
+            $("#showMapBtn").hide();
+
+            $("#googleMap").show();
+
+            $("#buttons").addClass("visible-xs");
+            $("#buttons").show();
+        }
+
+        console.log("Zooming on " + lat + "lat " + lon + "lon");
+        map.setCenter(pos);
+        map.setZoom(zoomLevel);
+            
     }
 
     return {
@@ -47,7 +75,7 @@
                 zoom: 5,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
-            var map = new google.maps.Map(document.getElementById("googleMap")
+            map = new google.maps.Map(document.getElementById("googleMap")
                 , mapProp);
             map.setCenter(pos);
 
@@ -63,6 +91,12 @@
 
         initUpdatePosition: function () {
             callUpdatePosition();
-        }
+        },
+
+
+        showMyPosition: function () {
+            zoomPosition(latitude, longtitude, 16);
+        },
+
     }
 })

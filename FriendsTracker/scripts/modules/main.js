@@ -84,6 +84,18 @@ define([], function () {
                     $('#showMapBtn').click(function () {
                         utils.showMap();
                     });
+
+                    $('#zoomBtn').click(function () {
+                        gmap.showMyPosition(map);
+                    });
+
+                    $('#userName').click(function () {
+                        gmap.showMyPosition(map);
+                    });
+
+                    $('.friendRow').click(function () {
+                        //TODO: Solve problem about zooming on friend position
+                    });
                 })
         });
     }

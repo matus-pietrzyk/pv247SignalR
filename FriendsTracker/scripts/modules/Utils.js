@@ -21,7 +21,8 @@
 
             $("#buttons").addClass("visible-xs");
             $("#buttons").show();
-        }
+        },
+
     }
 
 })
