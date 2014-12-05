@@ -1,7 +1,7 @@
 ﻿html,body{
     width: 100%;
     height: 100%;
-    background-color: #87B6E9;
+    background-color: ##F4F4F4;
 }
 
 tr:hover{
@@ -17,7 +17,7 @@ tr:hover{
 .noHover:hover {
     cursor:default !important;
     color:#333 !important;
-    background-color: #3F89DC !important;
+    background-color: #EEEEEE !important;
 }
 
 .table {
