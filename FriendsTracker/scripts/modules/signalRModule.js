@@ -41,6 +41,10 @@
 
                         if (timeDifferenceInSeconds < 10) {
 
+                            if ($("#noFriends").length > 0) {
+                                $("#noFriends").remove();
+                            }
+
                             if (!resultOfLookup[0].myself) {
                                 $("#friendListTable").append(function (n) {
                                     return "<tr id='friend" + key + "'><td class='photoColumn'><img src='" + image + "'></td><td class='nameColumn'>" + resultOfLookup[0].name + "</td></tr>";
@@ -97,9 +101,6 @@
 
             if ($("#friendListTable tr").length == 0) {
                 $("#friendListTable").append("<tr id='noFriends' class='noHover'><td>No Friends Online</td></tr>");
-            }
-            else {
-                $("#noFriends").remove();
             }
         };
     }
