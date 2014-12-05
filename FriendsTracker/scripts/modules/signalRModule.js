@@ -9,9 +9,11 @@
 
             var listOfFriends = fb.getListOfFriends();
 
-            $("#friendListTable").empty();
+            //$("#friendListTable").empty();
 
             for (var key in model) {
+
+                
 
                 var resultOfLookup = $.grep(listOfFriends, function (e) { return e.id == key; });
 
@@ -22,17 +24,13 @@
 
                     var image = resultOfLookup[0].pictureurl;
 
-                    if (!resultOfLookup[0].myself) {
-                        $("#friendListTable").append(function (n) {
-                            return "<tr><td class='photoColumn'><img src='" + image + "'></td><td class='nameColumn'>" + resultOfLookup[0].name + "</td></tr>";
-                        });
-                    }
-
                     var position = markers.map(function (e) { return e.id; }).indexOf(resultOfLookup[0].id);
 
                     console.log("Position of element: " + resultOfLookup[0].id + " is: " + position);
 
                     var obj = model[key];
+
+                    console.log("MODEL: ID: " + key);
 
                     var originalTimeStamp = new Date(obj.TimeStamp);
                     var timeNow = new Date();
@@ -42,6 +40,13 @@
                     if (position == -1) {
 
                         if (timeDifferenceInSeconds < 10) {
+
+                            if (!resultOfLookup[0].myself) {
+                                $("#friendListTable").append(function (n) {
+                                    return "<tr id='friend" + key + "'><td class='photoColumn'><img src='" + image + "'></td><td class='nameColumn'>" + resultOfLookup[0].name + "</td></tr>";
+                                });
+                            }
+
                             var marker = new google.maps.Marker({
                                 map: map,
                                 position: new google.maps.LatLng(obj.Coordinates.Latitude, obj.Coordinates.Longtitude),
@@ -80,6 +85,9 @@
                             console.log("DELETING");
                             markers[position].marker.setMap(null);
                             markers.splice(position, 1);
+
+                            serviceHub.server.delete(key);
+                            $("#friend" + key).remove();
                         }    
                     }                                                    
 
