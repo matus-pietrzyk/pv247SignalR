@@ -1,19 +1,13 @@
 ﻿define(['fb'], function (fb) {
     var serviceHub;
 
-    function initHandlers(map) {
+    function initHandlers(map, markers) {
         serviceHub.client.updateCoordinates = function (message) {
 
             var model = JSON.parse(message);
             //console.log("Model: " + JSON.stringify(model));
 
             var listOfFriends = fb.getListOfFriends();
-
-            //console.log("LIST OF FRIENDS - BEGIN");
-            //listOfFriends.forEach(function (entry) {
-            //    console.log(entry);
-            //});
-            //console.log("LIST OF FRIENDS - END");
 
             $("#friendListTable").empty();
 
@@ -30,29 +24,57 @@
 
                     if (!resultOfLookup[0].myself) {
                         $("#friendListTable").append(function (n) {
-                            return "<tr id='" + resultOfLookup[0].id + "' class='friendRow'><td class='photoColumn'><img src='" + image + "'></td><td class='nameColumn'>" + resultOfLookup[0].name + "</td></tr>";
+                            return "<tr><td class='photoColumn'><img src='" + image + "'></td><td class='nameColumn'>" + resultOfLookup[0].name + "</td></tr>";
                         });
                     }
-                                       
+
+                    var position = markers.map(function (e) { return e.id; }).indexOf(resultOfLookup[0].id);
+
+                    console.log("Position of element: " + resultOfLookup[0].id + " is: " + position);
+
                     var obj = model[key];
 
-                    var contentString = resultOfLookup[0].name;
+                    var originalTimeStamp = new Date(obj.TimeStamp);
+                    var timeNow = new Date();
 
-                    var infowindow = new google.maps.InfoWindow({
-                        content: '<div class="scrollFix">' + contentString + '</div>'
-                    });
+                    var timeDifferenceInSeconds = (timeNow.getTime() - originalTimeStamp.getTime()) / 1000;
 
-                    var marker = new google.maps.Marker({
-                        map: map,
-                        position: new google.maps.LatLng(obj.Coordinates.Latitude, obj.Coordinates.Longtitude),
-                        icon: image,
-                        title: resultOfLookup[0].name
-                    });
-                    marker.setMap(map);
+                    if (position == -1) {
 
-                    google.maps.event.addListener(marker, 'click', function () {
-                        infowindow.open(map, marker);
-                    });
+                        if (timeDifferenceInSeconds < 10) {
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: new google.maps.LatLng(obj.Coordinates.Latitude, obj.Coordinates.Longtitude),
+                                icon: image,
+                                animation: google.maps.Animation.DROP,
+                                title: resultOfLookup[0].name
+                            });
+
+                            markers.push({ id: resultOfLookup[0].id, marker: marker });
+
+                            marker.setMap(map);
+
+                            var contentString = resultOfLookup[0].name;
+
+                            var infowindow = new google.maps.InfoWindow({
+                                content: '<div class="scrollFix">' + contentString + '</div>'
+                            });
+
+                            google.maps.event.addListener(marker, 'click', function () {
+                                infowindow.open(map, marker);
+                            });
+                        }
+                    } else {
+
+                        if (timeDifferenceInSeconds < 10) {
+                            var newPosition = new google.maps.LatLng(obj.Coordinates.Latitude, obj.Coordinates.Longtitude);
+                            markers[position].marker.setPosition(newPosition);
+                        }
+                        else {
+                            markers[position].marker.setMap(null);
+                            markers.splice(position, 1);
+                        }    
+                    }                                                    
 
                 } else {
                     console.log("Multiple records found");
@@ -68,9 +90,9 @@
     return {
         //Dont know if markers neccessarry, but i didnt foud a way to delete markers withou google.maps.marker objects (google.maps.marker.setMap(null))
         initSignalR: function (hub, markers, map) {
-            serviceHub = hub;
 
-            initHandlers(map);
+            serviceHub = hub;
+            initHandlers(map, markers);
         }
     }
 })

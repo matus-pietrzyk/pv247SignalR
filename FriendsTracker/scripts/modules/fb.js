@@ -83,7 +83,12 @@
                 $("#userName").html("<img id='userPhoto' src='" + data + "'>" + response.name);
                 $("#userId").text(response.id);
 
-                listOfFriends.push({ id: response.id, name: response.name, pictureurl: data, myself: true });
+                listOfFriends.push({
+                    id: response.id,
+                    name: response.name,
+                    pictureurl: data,
+                    myself: true
+                });
             });
         });
     };
@@ -95,7 +100,12 @@
 
                     getProfilePictureUrl(friend.id, function (data) {
 
-                        listOfFriends.push({ id: friend.id, name: friend.name, pictureurl: data, myself: false });
+                        listOfFriends.push({
+                            id: friend.id,
+                            name: friend.name,
+                            pictureurl: data,
+                            myself: false
+                        });
                         console.log("id: " + friend.id + ", name: " + friend.name + ", url: " + data);
                     });
                 });

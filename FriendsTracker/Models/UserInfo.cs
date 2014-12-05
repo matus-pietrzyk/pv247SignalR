@@ -9,7 +9,6 @@ namespace FriendsTracker.Models
     {
 
         public Coordinates Coordinates { get; set; }
-        public string Name { get; set; }
 
         public DateTime TimeStamp { get; set; }
 
@@ -19,10 +18,9 @@ namespace FriendsTracker.Models
             this.TimeStamp = DateTime.Now;
         }
 
-        public UserInfo(Coordinates coordinates, String name, DateTime timeStamp)
+        public UserInfo(Coordinates coordinates, DateTime timeStamp)
         {
             this.Coordinates = coordinates;
-            this.Name = name;
             this.TimeStamp = timeStamp;
         }
 
