@@ -66,11 +66,18 @@
                         }
                     } else {
 
+                        console.log("TimeDifferenceInSeconds: " + timeDifferenceInSeconds);
+
+
+
                         if (timeDifferenceInSeconds < 10) {
+                            console.log("UPDATING");
+
                             var newPosition = new google.maps.LatLng(obj.Coordinates.Latitude, obj.Coordinates.Longtitude);
                             markers[position].marker.setPosition(newPosition);
                         }
                         else {
+                            console.log("DELETING");
                             markers[position].marker.setMap(null);
                             markers.splice(position, 1);
                         }    
