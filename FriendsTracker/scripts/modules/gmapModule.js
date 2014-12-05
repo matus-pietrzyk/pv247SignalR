@@ -85,6 +85,16 @@
             });
 
             console.log("Map was initialized");
+
+            navigator.geolocation.getCurrentPosition(function (position) {
+                
+                var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                map.setCenter(geolocate);
+                map.setZoom(15);
+
+                console.log("Zooming on current position");
+            });
+
             return map;
 
         },
