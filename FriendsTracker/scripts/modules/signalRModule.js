@@ -39,7 +39,7 @@
                     var contentString = resultOfLookup[0].name;
 
                     var infowindow = new google.maps.InfoWindow({
-                        content: contentString
+                        content: '<div class="scrollFix">' + contentString + '</div>'
                     });
 
                     var marker = new google.maps.Marker({
