@@ -55,7 +55,9 @@
 
                             //$("#" + key).click(function () {   
                             //    gmap.showPosition($("#friendLatitude" + key).val(), $("#friendLongtitude" + key).val());                                  
-                            //});
+                            //}); 
+
+
 
                             $("#friendListTable").on("click", ".testing", function () {
                                 gmap.showPosition($("#friendLatitude" + key).val(), $("#friendLongtitude" + key).val());
