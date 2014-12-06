@@ -44,10 +44,6 @@
             return;
         }
 
-        lat = 25;
-        lon = 25;
-        zoomLevel = 3;
-
         var pos = new google.maps.LatLng(lat, lon);
 
         //TODO refactor (Utils should be loaded first)
