@@ -21,7 +21,7 @@ namespace FriendsTracker.Models
         public Coordinates(double Latitude, double Longitude)
         {
             this.Latitude = Latitude;
-            this.Longtitude = Longitude;
+            this.Longtitude = Longtitude;
         }
     }
 }
