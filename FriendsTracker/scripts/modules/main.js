@@ -43,57 +43,60 @@ define([], function () {
         //Tady bude in na to, jestli načíst vše, nebo nic :-) Podle Codename, který nastavuju v Index.cshtml
 
 
-        require(['fb'], function (fb) {
-            require(['gmap'], function (gmap) {
-                require(["jquery",
-                    "utils",
-                    "signalR",
-                     "async!http://maps.googleapis.com/maps/api/js?key=AIzaSyDzPfjG3MX3RdE1ePdO73UMQUImPsjgZMU&sensor=true&callback=initialize",
-                    "signalr.hubs",
-                    "jquery.bootstrap"], function ($, utils, signalR) {
+        require(['jquery'], function ($) {
+            require(['fb'], function (fb) {
+                require(['gmap'], function (gmap) {
+                    require(["utils",
+                        "signalR",
+                         "async!http://maps.googleapis.com/maps/api/js?key=AIzaSyDzPfjG3MX3RdE1ePdO73UMQUImPsjgZMU&sensor=true&callback=initialize",
+                        "signalr.hubs",
+                        "jquery.bootstrap"], function (utils, signalR) {
 
-                        var markers = [];
+                            var markers =[];
 
-                        var serviceHub = $.connection.friendsTrackerHub; //!!first letter is small);
+                            var serviceHub = $.connection.friendsTrackerHub; //!!first letter is small);
 
-                        var map = gmap.initMap(serviceHub);
+                            var map = gmap.initMap(serviceHub);
 
-                        signalR.initSignalR(serviceHub, markers, map);
+                            signalR.initSignalR(serviceHub, markers, map);
 
-                        //This is called aftert connection is initialized
-                        $.connection.hub.start().done(function () {
-                            if (fb.getLogedIn()) {
+                            //This is called aftert connection is initialized
+                            $.connection.hub.start().done(function () {
+                                if (fb.getLogedIn()) {
+                                    gmap.initUpdatePosition();
+                                }
+                            })
+
+                            $('#logInBtn').click(function() {
+                                fb.customLogIn();
                                 gmap.initUpdatePosition();
-                            }
-                        })
+                            });
 
-                        $('#logInBtn').click(function () {
-                            fb.customLogIn();
-                            gmap.initUpdatePosition();
+                            $('#logOutBtn').click(function () {
+                                fb.customLogOut();
+                            });
+
+                            $('#showSideBarBtn').click(function () {
+                                utils.showSideBar();
+                                });
+
+                            $('#showMapBtn').click(function () {
+                                utils.showMap();
+                                });
+
+                            $('#zoomBtn').click(function () {
+                                gmap.showMyPosition();
+                                });
+
+                            $('#userName').click(function () {
+                                gmap.showMyPosition();
                         });
-
-                        $('#logOutBtn').click(function () {
-                            fb.customLogOut();
-                        });
-
-                        $('#showSideBarBtn').click(function () {
-                            utils.showSideBar();
-                        });
-
-                        $('#showMapBtn').click(function () {
-                            utils.showMap();
-                        });
-
-                        $('#zoomBtn').click(function () {
-                            gmap.showMyPosition();
-                        });
-
-                        $('#userName').click(function () {
-                            gmap.showMyPosition();
-                        });     
+                    })
                 })
             })
         });
+
+        
     }
 })
 
