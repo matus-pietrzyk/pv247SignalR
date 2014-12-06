@@ -19,6 +19,7 @@
             setTimeout(function () { callUpdatePosition(); }, 1000);
         }
         else {
+            google.maps.event.trigger(map, 'resize');
             updatePosition();
         }
     }
