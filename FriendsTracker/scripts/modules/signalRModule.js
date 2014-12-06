@@ -53,15 +53,17 @@
                                            "<input type='hidden' id='friendLatitude" + key + "' value='" + obj.Coordinates.Latitude + "' />" +
                                            "<input type='hidden' id='friendLongtitude" + key + "' value='" + obj.Coordinates.Longtitude + "' />";
                                 });
+
+                                alert('Binding on click handler for element' +key);
+
+                                $("#" +key).click(function () {
+
+                                    alert('On click event called for element' +key);
+                                    gmap.showFriendPosition(key);
+                                });
                             }
 
-                            alert('Binding on click handler for element' + key);
-
-                            $("#" + key).click(function () { 
-
-                                alert('On click event called for element' + key);
-                                gmap.showFriendPosition(key);                                  
-                            }); 
+                             
 
 
 
