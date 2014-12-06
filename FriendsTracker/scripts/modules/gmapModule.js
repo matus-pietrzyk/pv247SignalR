@@ -20,6 +20,7 @@
         }
         else {
             google.maps.event.trigger(map, 'resize');
+            zoomOnCurrentPosition();
             updatePosition();
         }
     }
@@ -42,7 +43,18 @@
         }
     }
 
-    function zoomFriendPosition(friendId) {
+    function zoomOnCurrentPosition() {
+        navigator.geolocation.getCurrentPosition(function (position) {
+
+            var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            map.setCenter(geolocate);
+            map.setZoom(16);
+
+            console.log("Zooming on current position");
+        });
+    }
+
+    function zoomOnFriendPosition(friendId) {
 
         var lat = $("#friendLatitude" +friendId).val();
         var long = $("#friendLongtitude" +friendId).val()
@@ -103,15 +115,6 @@
 
             console.log("Map was initialized");
 
-            navigator.geolocation.getCurrentPosition(function (position) {
-                
-                var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                map.setCenter(geolocate);
-                map.setZoom(16);
-
-                console.log("Zooming on current position");
-            });
-
             return map;
         },
 
@@ -124,7 +127,7 @@
         },
 
         showFriendPosition: function (friendId) {
-            zoomFriendPosition(friendId);
+            zoomOnFriendPosition(friendId);
         }
     }
 })
