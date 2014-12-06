@@ -45,7 +45,7 @@
                                 $("#noFriends").remove();
                             }
 
-                            if (resultOfLookup[0].myself) {
+                            if (!resultOfLookup[0].myself) {
                                 $("#friendListTable").append(function (n) {
                                     return "<tr class='testing' id='" + key + "'><td class='photoColumn'><img src='" + image + "'></td><td class='nameColumn'>" + resultOfLookup[0].name + "</td></tr>" +
                                            "<input type='hidden' id='friendLatitude" + key + "' value='" + obj.Coordinates.Latitude + "' />" +
