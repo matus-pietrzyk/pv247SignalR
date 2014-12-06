@@ -47,7 +47,7 @@
 
                             
 
-                            if (!resultOfLookup[0].myself) {
+                            if (resultOfLookup[0].myself) {
                                 $("#friendListTable").append(function (n) {
                                     return "<tr class='testing' id='" + key + "'><td class='photoColumn'><img src='" + image + "'></td><td class='nameColumn'>" + resultOfLookup[0].name + "</td></tr>" +
                                            "<input type='hidden' id='friendLatitude" + key + "' value='" + obj.Coordinates.Latitude + "' />" +
@@ -55,7 +55,10 @@
                                 });
                             }
 
-                            alert("SignalR: Latitude: " + $("#friendLatitude" + key).val() + ", Longtitude: " + $("#friendLongtitude" + key).val());
+                            var aa = $("#friendLatitude" + key).val();
+                            var bb = $("#friendLongtitude" + key).val()
+
+                            alert("SignalR: Latitude: " + aa + ", Longtitude: " + bb);
 
                             $("#" + key).click(function () {   
                                 gmap.showFriendPosition($("#friendLatitude" + key).val(), $("#friendLongtitude" + key).val());                                  
