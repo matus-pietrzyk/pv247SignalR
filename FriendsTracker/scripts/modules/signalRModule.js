@@ -56,11 +56,15 @@
 
                                 alert('Binding on click handler for element' +key);
 
-                                $("#" +key).click(function () {
+                                $("#" + key).click({ par1: key }, test_function);
 
-                                    alert('On click event called for element' +key);
-                                    gmap.showFriendPosition(key);
-                                });
+                                
+
+                                //$("#" +key).click(function () {
+
+                                //    alert('On click event called for element' +key);
+                                //    gmap.showFriendPosition(key);
+                                //});
                             }
 
                              
@@ -128,6 +132,11 @@
             }
         };
     }
+
+    function test_function(event) {
+        alert('On click event called for element' + event.data.par1);
+        gmap.showFriendPosition(event.data.par1);
+    };
 
     return {
         //Dont know if markers neccessarry, but i didnt foud a way to delete markers withou google.maps.marker objects (google.maps.marker.setMap(null))
