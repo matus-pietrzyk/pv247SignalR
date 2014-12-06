@@ -64,14 +64,12 @@ define([], function () {
                         $.connection.hub.start().done(function () {
                             if (fb.getLogedIn()) {
                                 gmap.initUpdatePosition();
-                            
                             }
                         })
 
                         $('#logInBtn').click(function () {
                             fb.customLogIn();
                             gmap.initUpdatePosition();
-
                         });
 
                         $('#logOutBtn').click(function () {
@@ -92,13 +90,10 @@ define([], function () {
 
                         $('#userName').click(function () {
                             gmap.showMyPosition();
-                        });
-
-                        
+                        });     
                 })
             })
         });
     }
-
 })
 

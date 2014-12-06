@@ -6,6 +6,7 @@
     var longitude;
 
     function showPosition(position) {
+
         latitude = position.coords.latitude;
         longitude = position.coords.longitude;
 
@@ -13,6 +14,7 @@
     }
 
     function callUpdatePosition() {
+
         if (fb.getAuthInProgress()) {
             setTimeout(function () { callUpdatePosition(); }, 1000);
         }
@@ -22,6 +24,7 @@
     }
 
     function updatePosition() {
+
         if (fb.getLogedIn()) {
             console.log("Updating position");
 
@@ -39,24 +42,19 @@
     }
 
     function zoomFriendPosition(friendId) {
+
         var lat = $("#friendLatitude" +friendId).val();
         var long = $("#friendLongtitude" +friendId).val()
 
-        alert("zoomFriendPosition: Latitude: " + lat + ", Longtitude: " +long);
-
-        zoomPosition(lat, long, 16);
+        zoomOnPosition(lat, long, 16);
     }
 
-    function zoomPosition(lat, lon, zoomLevel) {
-
-        alert("ZoomPosition - 01: Latitude: " + lat + ", Longtitude: " + lon);
+    function zoomOnPosition(lat, lon, zoomLevel) {
 
         if (!navigator.geolocation) {
             console.log("Browser does not support geolocation, or it is not permited.");
             return;
         }
-
-        alert("ZoomPosition - 02: Latitude: " + lat + ", Longtitude: " + lon);
 
         var pos = new google.maps.LatLng(lat, lon);
 
@@ -72,12 +70,10 @@
             $("#buttons").show();
         }
 
-        alert("Zooming on - 01: Latitude: " + lat + ", Longtitude: " + lon);
-
         console.log("Zooming on " + lat + " lat " + lon + " lon");
+
         map.setCenter(pos);
-        map.setZoom(zoomLevel);
-            
+        map.setZoom(zoomLevel);      
     }
 
     return {
@@ -92,8 +88,11 @@
                 zoom: 5,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
-            map = new google.maps.Map(document.getElementById("googleMap")
-                , mapProp);
+
+            map = new google.maps.Map(
+                document.getElementById("googleMap"),
+                mapProp);
+
             map.setCenter(pos);
 
             var infowindow = new google.maps.InfoWindow({
@@ -113,7 +112,6 @@
             });
 
             return map;
-
         },
 
         initUpdatePosition: function () {
@@ -121,13 +119,10 @@
         },
 
         showMyPosition: function () {
-            zoomPosition(latitude, longitude, 16);
+            zoomOnPosition(latitude, longitude, 16);
         },
 
         showFriendPosition: function (friendId) {
-
-            alert("ShowFriendsPosition: FriendID: " +friendId);
-
             zoomFriendPosition(friendId);
         }
     }

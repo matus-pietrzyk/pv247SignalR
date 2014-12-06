@@ -5,37 +5,24 @@
         serviceHub.client.updateCoordinates = function (message) {
 
             var model = JSON.parse(message);
-            //console.log("Model: " + JSON.stringify(model));
 
             var listOfFriends = fb.getListOfFriends();
 
-            //$("#friendListTable").empty();
-
             for (var key in model) {
-
-                
 
                 var resultOfLookup = $.grep(listOfFriends, function (e) { return e.id == key; });
 
                 if (resultOfLookup.length == 0) {
-                    console.log("Entry " + key + " not found.");
+                    console.log("Error: Entry " + key + " not found.");
                 } else if (resultOfLookup.length == 1) {
-                    console.log("One record found: " + key);
 
                     var image = resultOfLookup[0].pictureurl;
 
                     var position = markers.map(function (e) { return e.id; }).indexOf(resultOfLookup[0].id);
 
-                    console.log("Position of element: " + resultOfLookup[0].id + " is: " + position);
-
                     var obj = model[key];
 
-                    console.log("MODEL: ID: " + key);
-
-                    var originalTimeStamp = new Date(obj.TimeStamp);
-                    var timeNow = new Date();
-
-                    var timeDifferenceInSeconds = (timeNow.getTime() - originalTimeStamp.getTime()) / 1000;
+                    var timeDifferenceInSeconds = getTimeDifference(new Date(), new Date(obj.TimeStamp));
 
                     if (position == -1) {
 
@@ -45,8 +32,6 @@
                                 $("#noFriends").remove();
                             }
 
-                            
-
                             if (!resultOfLookup[0].myself) {
                                 $("#friendListTable").append(function (n) {
                                     return "<tr class='testing' id='" + key + "'><td class='photoColumn'><img src='" + image + "'></td><td class='nameColumn'>" + resultOfLookup[0].name + "</td></tr>" +
@@ -54,24 +39,8 @@
                                            "<input type='hidden' id='friendLongtitude" + key + "' value='" + obj.Coordinates.Longtitude + "' />";
                                 });
 
-                                alert('Binding on click handler for element' +key);
-
-                                $("#" + key).click({ par1: key }, test_function);
-
-                                
-
-                                //$("#" +key).click(function () {
-
-                                //    alert('On click event called for element' +key);
-                                //    gmap.showFriendPosition(key);
-                                //});
-                            }
-
-                             
-
-
-
-                            
+                                $("#" + key).click({ keyParameter: key }, centerOnPositionClickEvent);
+                            }   
 
                             var marker = new google.maps.Marker({
                                 map: map,
@@ -84,10 +53,8 @@
 
                             marker.setMap(map);
 
-                            var contentString = resultOfLookup[0].name;
-
                             var infowindow = new google.maps.InfoWindow({
-                                content: '<div class="scrollFix">' + contentString + '</div>'
+                                content: '<div class="scrollFix">' + resultOfLookup[0].name + '</div>'
                             });
 
                             google.maps.event.addListener(marker, 'click', function () {
@@ -98,19 +65,17 @@
 
                         console.log("TimeDifferenceInSeconds: " + timeDifferenceInSeconds);
 
-
-
                         if (timeDifferenceInSeconds < 10) {
-                            console.log("UPDATING");
 
                             $("#friendLatitude" + key).val(obj.Coordinates.Latitude);
                             $("#friendLongtitude" + key).val(obj.Coordinates.Longtitude);
 
                             var newPosition = new google.maps.LatLng(obj.Coordinates.Latitude, obj.Coordinates.Longtitude);
+
                             markers[position].marker.setPosition(newPosition);
                         }
                         else {
-                            console.log("DELETING");
+
                             markers[position].marker.setMap(null);
                             markers.splice(position, 1);
 
@@ -123,7 +88,7 @@
                     }                                                    
 
                 } else {
-                    console.log("Multiple records found");
+                    console.log("Error: Multiple records found");
                 }
             }
 
@@ -133,13 +98,16 @@
         };
     }
 
-    function test_function(event) {
-        alert('On click event called for element' + event.data.par1);
-        gmap.showFriendPosition(event.data.par1);
+    function getTimeDifference(presentTime, originalTime)
+    {
+        return ((presentTime.getTime() - originalTime.getTime()) / 1000);
+    }
+
+    function centerOnPositionClickEvent(event) {
+        gmap.showFriendPosition(event.data.keyParameter);
     };
 
     return {
-        //Dont know if markers neccessarry, but i didnt foud a way to delete markers withou google.maps.marker objects (google.maps.marker.setMap(null))
         initSignalR: function (hub, markers, map) {
 
             serviceHub = hub;
