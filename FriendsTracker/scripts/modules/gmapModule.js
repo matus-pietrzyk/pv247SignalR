@@ -38,6 +38,15 @@
         }
     }
 
+    function zoomFriendPosition(friendId) {
+        var lat = $("#friendLatitude" +friendId).val();
+        var long = $("#friendLongtitude" +friendId).val()
+
+        alert("zoomFriendPosition: Latitude: " + lat + ", Longtitude: " +long);
+
+        zoomPosition(lat, long, 16);
+    }
+
     function zoomPosition(lat, lon, zoomLevel) {
 
         alert("ZoomPosition - 01: Latitude: " + lat + ", Longtitude: " + lon);
@@ -115,11 +124,11 @@
             zoomPosition(latitude, longitude, 16);
         },
 
-        showFriendPosition: function (lat, long) {
+        showFriendPosition: function (friendId) {
 
-            alert("ShowFriendsPosition: Latitude: " + lat + ", Longtitude: " + long);
+            alert("ShowFriendsPosition: FriendID: " +friendId);
 
-            zoomPosition(lat, long, 16);
+            zoomFriendPosition(friendId);
         }
     }
 })

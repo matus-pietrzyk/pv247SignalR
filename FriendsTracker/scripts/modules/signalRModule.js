@@ -55,13 +55,12 @@
                                 });
                             }
 
-                            var aa = $("#friendLatitude" + key).val();
-                            var bb = $("#friendLongtitude" + key).val()
+                            alert('Binding on click handler for element' + key);
 
-                            alert("SignalR: Latitude: " + aa + ", Longtitude: " + bb);
+                            $("#" + key).click(function () { 
 
-                            $("#" + key).click(function () {   
-                                gmap.showFriendPosition($("#friendLatitude" + key).val(), $("#friendLongtitude" + key).val());                                  
+                                alert('On click event called for element' + key);
+                                gmap.showFriendPosition(key);                                  
                             }); 
 
 
