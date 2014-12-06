@@ -59,9 +59,7 @@
 
 
 
-                            $("#friendListTable").on("click", ".testing", function () {
-                                gmap.showPosition($("#friendLatitude" + key).val(), $("#friendLongtitude" + key).val());
-                            });
+                            
 
                             var marker = new google.maps.Marker({
                                 map: map,
