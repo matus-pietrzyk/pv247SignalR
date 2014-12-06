@@ -92,7 +92,11 @@ define([], function () {
 
                         $('#userName').click(function () {
                             gmap.showMyPosition();
-                        });             
+                        });
+
+                        $("#friendListTable").on("click", ".testing", function () {
+        gmap.showPosition($("#friendLatitude" + key).val(), $("#friendLongtitude" + key).val());
+    });
                 })
             })
         });

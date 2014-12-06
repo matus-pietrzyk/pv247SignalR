@@ -5,10 +5,6 @@
     var latitude;
     var longtitude;
 
-    $("#friendListTable").on("click", ".testing", function () {
-        gmap.showPosition($("#friendLatitude" + key).val(), $("#friendLongtitude" + key).val());
-    });
-
     function showPosition(position) {
         latitude = position.coords.latitude;
         longtitude = position.coords.longitude;
