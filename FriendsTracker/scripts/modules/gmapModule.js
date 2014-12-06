@@ -57,8 +57,6 @@
             $("#buttons").show();
         }
 
-        $("#googleMap").show();
-
         console.log("Zooming on " + lat + "lat " + lon + "lon");
         map.setCenter(pos);
         map.setZoom(zoomLevel);
