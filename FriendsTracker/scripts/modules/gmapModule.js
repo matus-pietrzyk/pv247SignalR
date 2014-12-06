@@ -39,10 +39,15 @@
     }
 
     function zoomPosition(lat, lon, zoomLevel) {
+
+        alert("ZoomPosition - 01: Latitude: " + lat + ", Longtitude: " + lon);
+
         if (!navigator.geolocation) {
             console.log("Browser does not support geolocation, or it is not permited.");
             return;
         }
+
+        alert("ZoomPosition - 02: Latitude: " + lat + ", Longtitude: " + lon);
 
         var pos = new google.maps.LatLng(lat, lon);
 
@@ -57,6 +62,8 @@
             $("#buttons").addClass("visible-xs");
             $("#buttons").show();
         }
+
+        alert("Zooming on - 01: Latitude: " + lat + ", Longtitude: " + lon);
 
         console.log("Zooming on " + lat + " lat " + lon + " lon");
         map.setCenter(pos);
@@ -109,6 +116,9 @@
         },
 
         showFriendPosition: function (lat, long) {
+
+            alert("ShowFriendsPosition: Latitude: " + lat + ", Longtitude: " + long);
+
             zoomPosition(lat, long, 16);
         }
     }

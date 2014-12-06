@@ -45,6 +45,8 @@
                                 $("#noFriends").remove();
                             }
 
+                            
+
                             if (!resultOfLookup[0].myself) {
                                 $("#friendListTable").append(function (n) {
                                     return "<tr class='testing' id='" + key + "'><td class='photoColumn'><img src='" + image + "'></td><td class='nameColumn'>" + resultOfLookup[0].name + "</td></tr>" +
@@ -52,6 +54,8 @@
                                            "<input type='hidden' id='friendLongtitude" + key + "' value='" + obj.Coordinates.Longtitude + "' />";
                                 });
                             }
+
+                            alert("SignalR: Latitude: " + $("#friendLatitude" + key).val() + ", Longtitude: " + $("#friendLongtitude" + key).val());
 
                             $("#" + key).click(function () {   
                                 gmap.showFriendPosition($("#friendLatitude" + key).val(), $("#friendLongtitude" + key).val());                                  
