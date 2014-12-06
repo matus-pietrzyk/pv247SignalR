@@ -53,9 +53,9 @@
                                 });
                             }
 
-                            //$("#" + key).click(function () {   
-                            //    gmap.showPosition($("#friendLatitude" + key).val(), $("#friendLongtitude" + key).val());                                  
-                            //}); 
+                            $("#" + key).click(function () {   
+                                gmap.showPosition($("#friendLatitude" + key).val(), $("#friendLongtitude" + key).val());                                  
+                            }); 
 
 
 
