@@ -90,7 +90,7 @@
                 
                 var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 map.setCenter(geolocate);
-                map.setZoom(15);
+                map.setZoom(16);
 
                 console.log("Zooming on current position");
             });
@@ -103,10 +103,12 @@
             callUpdatePosition();
         },
 
-
         showMyPosition: function () {
             zoomPosition(latitude, longtitude, 16);
         },
 
+        showPosition: function (lat, long) {
+            zoomPosition(lat, long, 16);
+        }
     }
 })
