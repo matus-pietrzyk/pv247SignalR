@@ -3,13 +3,13 @@
     var serviceHub;
     var map;
     var latitude;
-    var longtitude;
+    var longitude;
 
     function showPosition(position) {
         latitude = position.coords.latitude;
-        longtitude = position.coords.longitude;
+        longitude = position.coords.longitude;
 
-        serviceHub.server.send($('#userId').text(), latitude, longtitude);
+        serviceHub.server.send($('#userId').text(), latitude, longitude);
     }
 
     function callUpdatePosition() {
@@ -58,7 +58,7 @@
             $("#buttons").show();
         }
 
-        console.log("Zooming on " + lat + "lat " + lon + "lon");
+        console.log("Zooming on " + lat + " lat " + lon + " lon");
         map.setCenter(pos);
         map.setZoom(zoomLevel);
             
@@ -105,10 +105,10 @@
         },
 
         showMyPosition: function () {
-            zoomPosition(latitude, longtitude, 16);
+            zoomPosition(latitude, longitude, 16);
         },
 
-        showPosition: function (lat, long) {
+        showFriendPosition: function (lat, long) {
             zoomPosition(lat, long, 16);
         }
     }
