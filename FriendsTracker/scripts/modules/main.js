@@ -44,13 +44,14 @@ define([], function () {
 
 
         require(['fb'], function (fb) {
-            require(['gmap'], function (gmap) {
+            //require(['gmap'], function (gmap) {
                 require(["jquery",
                     "utils",
+                    "gmap",
                     "signalR",
                      "async!http://maps.googleapis.com/maps/api/js?key=AIzaSyDzPfjG3MX3RdE1ePdO73UMQUImPsjgZMU&sensor=true&callback=initialize",
                     "signalr.hubs",
-                    "jquery.bootstrap"], function ($, utils, signalR) {
+                    "jquery.bootstrap"], function ($, utils, gmap, signalR) {
 
                         var markers = [];
 
@@ -94,7 +95,7 @@ define([], function () {
                             gmap.showMyPosition();
                         });             
                 })
-            })
+            //})
         });
     }
 

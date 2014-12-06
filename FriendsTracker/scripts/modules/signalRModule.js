@@ -1,5 +1,32 @@
-﻿define(['fb', 'gmap'], function (fb, gmap) {
+﻿define(['fb'], function (fb) {
     var serviceHub;
+
+    function zoomPosition(map, lat, lon, zoomLevel) {
+        if (!navigator.geolocation) {
+            console.log("Browser does not support geolocation, or it is not permited.");
+            return;
+        }
+        var pos = new google.maps.LatLng(lat, lon);
+
+        //TODO refactor (Utils should be loaded first)
+        if (!$("#sideBar").hasClass("hidden-xs")) {
+            $("#sideBar").addClass("hidden-xs");
+
+            $("#showMapBtn").hide();
+
+            $("#googleMap").show();
+
+            $("#buttons").addClass("visible-xs");
+            $("#buttons").show();
+        }
+
+        $("#googleMap").show();
+
+        console.log("Zooming on " + lat + "lat " + lon + "lon");
+        map.setCenter(pos);
+        map.setZoom(zoomLevel);
+
+    }
 
     function initHandlers(map, markers) {
         serviceHub.client.updateCoordinates = function (message) {
@@ -53,8 +80,12 @@
                                 });
                             }
 
-                            $("#" + key).click(function () {   
-                                gmap.showPosition($("#friendLatitude" + key).val(), $("#friendLongtitude" + key).val());                                  
+                            //$("#" + key).click(function () {   
+                            //    gmap.showPosition($("#friendLatitude" + key).val(), $("#friendLongtitude" + key).val());                                  
+                            //});
+
+                            $("#" + key).click(function () {
+                                zoomPosition(map, $("#friendLatitude" + key).val(), $("#friendLongtitude" + key).val(), 16);
                             });
 
                             var marker = new google.maps.Marker({
