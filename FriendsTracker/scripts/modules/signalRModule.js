@@ -53,18 +53,26 @@
 
                             markers.push({ id: resultOfLookup[0].id, marker: marker });
 
-                            marker.setMap(map);
-
-                            infowindow = new google.maps.InfoWindow({
+                            marker.info = new google.maps.InfoWindow({
                                 content: '<div class="scrollFix">' + resultOfLookup[0].name + '</div>'
                             });
 
-                            google.maps.event.addListener(marker, 'click', (function (marker) {
-                                return function () {
+                            marker.setMap(map);
+
+                            //infowindow = new google.maps.InfoWindow({
+                            //    content: '<div class="scrollFix">' + resultOfLookup[0].name + '</div>'
+                            //});
+
+                            google.maps.event.addListener(marker, 'click', function() {
+                                marker.info.open(map, marker);
+                            });
+
+                            //google.maps.event.addListener(marker, 'click', (function (marker) {
+                            //    return function () {
                                     
-                                    infowindow.open(map, marker);
-                                }
-                            })(marker));
+                            //        infowindow.open(map, marker);
+                            //    }
+                            //})(marker));
 
                         }
                     } else {
