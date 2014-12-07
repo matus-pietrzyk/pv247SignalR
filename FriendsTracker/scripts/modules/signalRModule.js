@@ -55,13 +55,17 @@
 
                             marker.setMap(map);
 
+                            alert("Adding infowindow to: " + resultOfLookup[0].name);
+
                             infowindow = new google.maps.InfoWindow({
                                 content: '<div class="scrollFix">' + resultOfLookup[0].name + '</div>'
                             });
 
-                            google.maps.event.addListener(marker, 'click', function () {
-                                infowindow.open(map, this);
-                            });
+                            //google.maps.event.addListener(marker, 'click', function () {
+                            //    infowindow.open(map, this);
+                            //});
+
+                            listenMarker(marker);
                         }
                     } else {
 
@@ -103,7 +107,7 @@
     function listenMarker(marker) {
         // so marker is associated with the closure created for the listenMarker function call
         google.maps.event.addListener(marker, 'click', function () {
-            infowindow.open(map, this);
+            infowindow.open(map, marker);
         });
     }
 
