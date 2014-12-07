@@ -42,7 +42,13 @@
                                 });
 
                                 $("#" + key).click({ keyParameter: key }, centerOnPositionClickEvent);
-                            }   
+                            }
+
+                            var name = resultOfLookup[0].name;
+
+                            infowindow = new google.maps.InfoWindow({
+                                content: '<div class="scrollFix">' + name + '</div>'
+                            });
 
                             var marker = new google.maps.Marker({
                                 map: map,
@@ -51,15 +57,9 @@
                                 title: resultOfLookup[0].name
                             });
 
-                            var name = resultOfLookup[0].name;
-                           
-                            infowindow = new google.maps.InfoWindow({
-                                content: '<div class="scrollFix">' + name + '</div>'
-                            });
-
                             markers.push({ id: resultOfLookup[0].id, marker: marker });
 
-                            marker.setMap(map);
+                            //marker.setMap(map);
 
                             google.maps.event.addListener(marker, 'click', (function (marker) {
                                 return function () {
