@@ -61,12 +61,9 @@
 
                             markers.push({ id: resultOfLookup[0].id, marker: marker });
 
-                            google.maps.event.addListener(marker, 'click', (function (marker) {
-                                return function () {
-                                    infowindow.setContent(name + " XXX");
-                                    infowindow.open(map, marker);
-                                }
-                            })(marker));
+                            google.maps.event.addListener(marker, 'click', function () {
+                                infoWindow.open(map, this);
+                            });
 
                         }
                     } else {
