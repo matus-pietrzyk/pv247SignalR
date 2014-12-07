@@ -10,8 +10,6 @@
 
             var infowindow = null;
 
-            infowindow = new google.maps.InfoWindow();
-
             for (var key in model) {
 
                 var resultOfLookup = $.grep(listOfFriends, function (e) { return e.id == key; });
@@ -53,15 +51,12 @@
                                 title: resultOfLookup[0].name
                             });
 
-                            markers.push({ id: resultOfLookup[0].id, marker: marker });
+                           
+                            infowindow = new google.maps.InfoWindow();
 
-                            //infowindow = new google.maps.InfoWindow({
-                            //    content: '<div class="scrollFix">' + resultOfLookup[0].name + '</div>'
-                            //});
+                            var name = resultOfLookup[0].name;
 
-                            
-
-                            content = '<div class="scrollFix">' + resultOfLookup[0].name + '</div>';
+                            content = '<div class="scrollFix">' + name + '</div>';
 
                             google.maps.event.addListener(marker, 'click', (function (content) {
                                 return function () {
@@ -69,6 +64,8 @@
                                     infowindow.open(map, this);
                                 }
                             })(contentString));
+
+                            markers.push({ id: resultOfLookup[0].id, marker: marker });
 
                             marker.setMap(map);
 
