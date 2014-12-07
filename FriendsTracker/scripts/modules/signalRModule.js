@@ -61,10 +61,17 @@
                                 content: '<div class="scrollFix">' + resultOfLookup[0].name + '</div>'
                             });
 
-                            google.maps.event.addListener(marker, 'click', function () {
+                            //google.maps.event.addListener(marker, 'click', function () {
                   
-                                infowindow.open(map, this);
-                            });
+                            //    infowindow.open(map, this);
+                            //});
+
+                            google.maps.event.addListener(marker, 'click', (function (marker) {
+                                return function () {
+                                    
+                                    infowindow.open(map, marker);
+                                }
+                            })(marker));
 
                             //listenMarker(marker);
                         }
