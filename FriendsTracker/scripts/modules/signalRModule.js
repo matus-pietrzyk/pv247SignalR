@@ -55,7 +55,7 @@
 
                             marker.setMap(map);
 
-                            alert("Adding infowindow to: " + resultOfLookup[0].name);
+                            //alert("Adding infowindow to: " + resultOfLookup[0].name);
 
                             infowindow = new google.maps.InfoWindow({
                                 content: '<div class="scrollFix">' + resultOfLookup[0].name + '</div>'
