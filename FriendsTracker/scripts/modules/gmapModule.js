@@ -34,9 +34,18 @@
             window.longtitude = 0;
 
             if (navigator.geolocation) {
+
+                if ($("#noLocation").length > 0) {
+                    $("#noLocation").remove();
+                }
+
                 navigator.geolocation.getCurrentPosition(showPosition);
             } else {
                 console.log("Browser does not support geolocation, or it is not permited.");
+
+                if ($("#friendListTable tr").length == 0) {
+                    $("#friendListTable").append("<tr id='noLocation' class='noHover'><td>Please turn-on geolocation</td></tr>");
+                }
             }
 
             setTimeout(function () { updatePosition(); }, 1000);
