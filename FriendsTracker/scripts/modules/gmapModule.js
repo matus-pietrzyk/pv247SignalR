@@ -55,7 +55,9 @@
     function locationErrorHandler(error) {
         geoLocationSuccessful = false;
 
-        $("#friendListTable").append("<tr id='noLocation' class='noHover'><td>Please turn-on geolocation</td></tr>");
+        if ($("#noLocation").length = 0) {
+            $("#friendListTable").append("<tr id='noLocation' class='noHover'><td>Please turn-on geolocation</td></tr>");
+        }
 
         switch (error.code) {
             case error.PERMISSION_DENIED:
