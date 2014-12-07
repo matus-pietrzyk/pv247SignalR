@@ -8,7 +8,7 @@
 
             var listOfFriends = fb.getListOfFriends();
 
-            var infowindow = null;
+            var infoWindow = null;
 
             var name = null;
 
@@ -48,7 +48,7 @@
 
                             name = resultOfLookup[0].name;
 
-                            infowindow = new google.maps.InfoWindow({
+                            infoWindow = new google.maps.InfoWindow({
                                 content: '<div class="scrollFix">' + name + '</div>'
                             });
 
