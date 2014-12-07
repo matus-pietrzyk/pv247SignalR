@@ -57,7 +57,7 @@
                                 content: '<div class="scrollFix">' + resultOfLookup[0].name + '</div>'
                             });
 
-                            marker.setMap(map);
+                            
 
                             //infowindow = new google.maps.InfoWindow({
                             //    content: '<div class="scrollFix">' + resultOfLookup[0].name + '</div>'
@@ -66,6 +66,8 @@
                             google.maps.event.addListener(marker, 'click', function() {
                                 marker.info.open(map, marker);
                             });
+
+                            marker.setMap(map);
 
                             //google.maps.event.addListener(marker, 'click', (function (marker) {
                             //    return function () {
