@@ -55,7 +55,7 @@
     function locationErrorHandler(error) {
         geoLocationSuccessful = false;
 
-        if ($("#noLocation").length = 0) {
+        if ($("#noLocation").length == 0) {
             $("#friendListTable").append("<tr id='noLocation' class='noHover'><td>Please turn-on geolocation</td></tr>");
         }
 
