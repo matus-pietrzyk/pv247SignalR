@@ -132,7 +132,15 @@
         },
 
         showMyPosition: function () {
-            zoomOnPosition(latitude, longitude, 16);
+
+            if ($("#noLocation").length > 0) {
+                return;
+            }
+            else {
+                zoomOnPosition(latitude, longitude, 16);
+            }
+
+            
         },
 
         showFriendPosition: function (friendId) {
