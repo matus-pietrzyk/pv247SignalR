@@ -61,11 +61,11 @@
                                 content: '<div class="scrollFix">' + resultOfLookup[0].name + '</div>'
                             });
 
-                            //google.maps.event.addListener(marker, 'click', function () {
-                            //    infowindow.open(map, this);
-                            //});
+                            google.maps.event.addListener(marker, 'click', function () {
+                                infowindow.open(map, this);
+                            });
 
-                            listenMarker(marker);
+                            //listenMarker(marker);
                         }
                     } else {
 
