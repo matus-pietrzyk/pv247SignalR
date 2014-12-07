@@ -10,6 +10,8 @@
 
             var infowindow = null;
 
+            var name = null;
+
             for (var key in model) {
 
                 var resultOfLookup = $.grep(listOfFriends, function (e) { return e.id == key; });
@@ -44,7 +46,7 @@
                                 $("#" + key).click({ keyParameter: key }, centerOnPositionClickEvent);
                             }
 
-                            var name = resultOfLookup[0].name;
+                            name = resultOfLookup[0].name;
 
                             infowindow = new google.maps.InfoWindow({
                                 content: '<div class="scrollFix">' + name + '</div>'
@@ -58,8 +60,6 @@
                             });
 
                             markers.push({ id: resultOfLookup[0].id, marker: marker });
-
-                            //marker.setMap(map);
 
                             google.maps.event.addListener(marker, 'click', (function (marker) {
                                 return function () {
