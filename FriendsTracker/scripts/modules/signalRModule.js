@@ -8,6 +8,8 @@
 
             var listOfFriends = fb.getListOfFriends();
 
+            var infowindow = null;
+
             for (var key in model) {
 
                 var resultOfLookup = $.grep(listOfFriends, function (e) { return e.id == key; });
@@ -53,12 +55,12 @@
 
                             marker.setMap(map);
 
-                            var infowindow = new google.maps.InfoWindow({
+                            infowindow = new google.maps.InfoWindow({
                                 content: '<div class="scrollFix">' + resultOfLookup[0].name + '</div>'
                             });
 
                             google.maps.event.addListener(marker, 'click', function () {
-                                infowindow.open(map, marker);
+                                infowindow.open(map, this);
                             });
                         }
                     } else {
@@ -96,6 +98,13 @@
                 $("#friendListTable").append("<tr id='noFriends' class='noHover'><td>No Friends Online</td></tr>");
             }
         };
+    }
+
+    function listenMarker(marker) {
+        // so marker is associated with the closure created for the listenMarker function call
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.open(map, this);
+        });
     }
 
     function getTimeDifference(presentTime, originalTime)
