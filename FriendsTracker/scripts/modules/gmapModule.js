@@ -133,14 +133,12 @@
 
         showMyPosition: function () {
 
-            if ($("#noLocation").length > 0) {
-                return;
-            }
-            else {
+            if (navigator.geolocation) {
                 zoomOnPosition(latitude, longitude, 16);
             }
-
-            
+            else {
+                return;
+            }
         },
 
         showFriendPosition: function (friendId) {
