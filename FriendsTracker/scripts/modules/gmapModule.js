@@ -4,8 +4,16 @@
     var map;
     var latitude;
     var longitude;
+    var geoLocationSuccessful = true;
+
 
     function showPosition(position) {
+
+        geoLocationSuccessful = true;
+
+        if ($("#noLocation").length > 0) {
+            $("#noLocation").remove();
+        }
 
         latitude = position.coords.latitude;
         longitude = position.coords.longitude;
@@ -35,18 +43,33 @@
 
             if (navigator.geolocation) {
 
-                if ($("#noLocation").length > 0) {
-                    $("#noLocation").remove();
-                }
-
-                navigator.geolocation.getCurrentPosition(showPosition);
+                navigator.geolocation.getCurrentPosition(showPosition, locationErrorHandler);
             } else {
-                console.log("Browser does not support geolocation, or it is not permited.");
-                
-                $("#friendListTable").append("<tr id='noLocation' class='noHover'><td>Please turn-on geolocation</td></tr>");
+                console.log("Geolocation is not supported by this browser."); 
             }
 
             setTimeout(function () { updatePosition(); }, 1000);
+        }
+    }
+
+    function locationErrorHandler(error) {
+        geoLocationSuccessful = false;
+
+        $("#friendListTable").append("<tr id='noLocation' class='noHover'><td>Please turn-on geolocation</td></tr>");
+
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                console.log("User denied the request for Geolocation.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                console.log("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                console.log("The request to get user location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+                console.log("An unknown error occurred.");
+                break;
         }
     }
 
@@ -78,7 +101,6 @@
 
         var pos = new google.maps.LatLng(lat, lon);
 
-        //TODO refactor (Utils should be loaded first)
         if (!$("#sideBar").hasClass("hidden-xs")) {
             $("#sideBar").addClass("hidden-xs");
 
@@ -131,11 +153,10 @@
 
         showMyPosition: function () {
 
-            if (navigator.geolocation) {
+            if (geoLocationSuccessful) {
                 zoomOnPosition(latitude, longitude, 16);
             }
             else {
-                return;
             }
         },
 
