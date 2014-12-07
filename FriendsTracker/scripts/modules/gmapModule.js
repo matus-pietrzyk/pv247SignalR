@@ -75,7 +75,7 @@
             map.setZoom(16);
 
             console.log("Zooming on current position");
-        });
+        }, locationErrorHandler);
     }
 
     function zoomOnFriendPosition(friendId) {
