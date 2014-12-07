@@ -63,6 +63,7 @@
 
                             google.maps.event.addListener(marker, 'click', (function (marker) {
                                 return function () {
+                                    infowindow.setContent(name + " XXX");
                                     infowindow.open(map, marker);
                                 }
                             })(marker));
