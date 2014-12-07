@@ -51,30 +51,21 @@
                                 title: resultOfLookup[0].name
                             });
 
-                           
-                            infowindow = new google.maps.InfoWindow();
-
                             var name = resultOfLookup[0].name;
-
-                            content = '<div class="scrollFix">' + name + '</div>';
-
-                            google.maps.event.addListener(marker, 'click', (function (content) {
-                                return function () {
-                                    infowindow.setContent(content)
-                                    infowindow.open(map, this);
-                                }
-                            })(contentString));
+                           
+                            infowindow = new google.maps.InfoWindow({
+                                content: '<div class="scrollFix">' + name + '</div>'
+                            });
 
                             markers.push({ id: resultOfLookup[0].id, marker: marker });
 
                             marker.setMap(map);
 
-                            //google.maps.event.addListener(marker, 'click', (function (marker) {
-                            //    return function () {
-                            //        infowindow.setContent(content)
-                            //        infowindow.open(map, marker);
-                            //    }
-                            //})(marker));
+                            google.maps.event.addListener(marker, 'click', (function (marker) {
+                                return function () {
+                                    this.infowindow.open(map, marker);
+                                }
+                            })(marker));
 
                         }
                     } else {
