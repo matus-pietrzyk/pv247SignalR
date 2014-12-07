@@ -55,16 +55,9 @@
 
                             marker.setMap(map);
 
-                            //alert("Adding infowindow to: " + resultOfLookup[0].name);
-
                             infowindow = new google.maps.InfoWindow({
                                 content: '<div class="scrollFix">' + resultOfLookup[0].name + '</div>'
                             });
-
-                            //google.maps.event.addListener(marker, 'click', function () {
-                  
-                            //    infowindow.open(map, this);
-                            //});
 
                             google.maps.event.addListener(marker, 'click', (function (marker) {
                                 return function () {
@@ -73,7 +66,6 @@
                                 }
                             })(marker));
 
-                            //listenMarker(marker);
                         }
                     } else {
 
@@ -110,13 +102,6 @@
                 $("#friendListTable").append("<tr id='noFriends' class='noHover'><td>No Friends Online</td></tr>");
             }
         };
-    }
-
-    function listenMarker(marker) {
-        // so marker is associated with the closure created for the listenMarker function call
-        google.maps.event.addListener(marker, 'click', function () {
-            infowindow.open(map, marker);
-        });
     }
 
     function getTimeDifference(presentTime, originalTime)
