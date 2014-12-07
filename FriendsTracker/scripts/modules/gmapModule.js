@@ -11,10 +11,6 @@
 
         geoLocationSuccessful = true;
 
-        if ($("#noLocation").length > 0) {
-            $("#noLocation").remove();
-        }
-
         latitude = position.coords.latitude;
         longitude = position.coords.longitude;
 
@@ -55,10 +51,6 @@
     function locationErrorHandler(error) {
         geoLocationSuccessful = false;
 
-        if ($("#noLocation").length == 0) {
-            $("#geoLocationErrorTable").append("<tr id='noLocation' class='noHover'><td>Please turn-on geolocation</td></tr>");
-        }
-
         switch (error.code) {
             case error.PERMISSION_DENIED:
                 console.log("User denied the request for Geolocation.");
@@ -95,11 +87,6 @@
     }
 
     function zoomOnPosition(lat, lon, zoomLevel) {
-
-        if (!navigator.geolocation) {
-            console.log("Browser does not support geolocation, or it is not permited.");
-            return;
-        }
 
         var pos = new google.maps.LatLng(lat, lon);
 
